@@ -1,4 +1,7 @@
 package com.workflex.enums;
 
-public class Role {
+public enum Role {
+    WORKER,
+    EMPLOYER,
+    ADMIN
 }
