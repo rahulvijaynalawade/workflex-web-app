@@ -9,5 +9,4 @@ public class WorkflexApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WorkflexApplication.class, args);
 	}
-
 }

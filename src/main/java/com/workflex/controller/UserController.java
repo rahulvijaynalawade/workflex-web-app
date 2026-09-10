@@ -1,6 +1,8 @@
 package com.workflex.controller;
 
+import com.workflex.dto.request.RegisterRequest;
 import com.workflex.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,9 +15,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String test() {
-        return "Welcome to WorkFlex Backend";
-    }
+    @PostMapping("/register")
+    public String register(@RequestBody @Valid RegisterRequest request) {
 
+        userService.register(request);
+
+        return "User Registered Successfully";
+    }
 }
