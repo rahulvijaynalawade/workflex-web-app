@@ -25,18 +25,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody @Valid LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                request.getEmail(),
-                                request.getPassword()
-                        )
-        );
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        CustomUserDetails userDetails =
-                (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        String token =
-                jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(userDetails);
 
         User user = userDetails.getUser();
 

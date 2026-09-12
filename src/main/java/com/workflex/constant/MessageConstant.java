@@ -12,6 +12,12 @@ public final class MessageConstant {
 
     public static final String LOGIN_SUCCESS = "Login successful";
 
+    public static final String WORKER_PROFILE_NOT_FOUND = "Worker profile not found";
+
+    public static final String WORKER_PROFILE_ALREADY_EXISTS = "Worker profile already exists";
+
+    public static final String VALIDATION_FAILED = "Validation failed";
+
 
     private MessageConstant() {
     }
