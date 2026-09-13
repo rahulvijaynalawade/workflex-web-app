@@ -1,5 +1,6 @@
 package com.workflex.worker.service;
 
+import com.workflex.constant.MessageConstant;
 import com.workflex.entity.User;
 import com.workflex.exception.BadRequestException;
 import com.workflex.exception.ResourceNotFoundException;
@@ -34,10 +35,10 @@ public class WorkerServiceImpl implements WorkerService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByEmail(email)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
 
         if (workerProfileRepository.findByUserId(user.getId()).isPresent()) {
-            throw new BadRequestException("Worker profile already exists");
+            throw new ResourceNotFoundException(MessageConstant.WORKER_PROFILE_ALREADY_EXISTS);
         }
 
         WorkerProfile workerProfile = workerProfileMapper.toEntity(request);
@@ -55,10 +56,10 @@ public class WorkerServiceImpl implements WorkerService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByEmail(email)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
 
         WorkerProfile workerProfile = workerProfileRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Worker profile not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.WORKER_PROFILE_NOT_FOUND));
 
         return workerProfileMapper.toResponse(workerProfile);
     }
@@ -68,10 +69,10 @@ public class WorkerServiceImpl implements WorkerService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByEmail(email)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
 
         WorkerProfile workerProfile = workerProfileRepository.findByUserId(user.getId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Worker profile not found"));
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.WORKER_PROFILE_NOT_FOUND));
 
         workerProfile.setSkills(request.getSkills());
 

@@ -8,29 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class WorkerProfileMapper {
 
-    public WorkerProfile toEntity(
-            WorkerProfileRequest request) {
+    public WorkerProfile toEntity(WorkerProfileRequest request) {
 
-        WorkerProfile workerProfile =
-                new WorkerProfile();
+        WorkerProfile workerProfile = new WorkerProfile();
 
-        workerProfile.setSkills(
-                request.getSkills()
-        );
+        workerProfile.setSkills(request.getSkills());
 
-        workerProfile.setExperience(
-                request.getExperience()
-        );
+        workerProfile.setExperience(request.getExperience());
 
-        workerProfile.setAvailability(
-                request.getAvailability()
-        );
+        workerProfile.setAvailability(request.getAvailability());
 
         return workerProfile;
     }
 
-    public WorkerProfileResponse toResponse(
-            WorkerProfile workerProfile) {
+    public WorkerProfileResponse toResponse(WorkerProfile workerProfile) {
 
         return new WorkerProfileResponse(
                 workerProfile.getId(),

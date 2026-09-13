@@ -18,6 +18,9 @@ public final class MessageConstant {
 
     public static final String VALIDATION_FAILED = "Validation failed";
 
+    public static final String JOB_NOT_FOUND = "Job not found";
+
+    public static final String JOB_ACCESS_FORBIDDEN = "You are not allowed to access this job";
 
     private MessageConstant() {
     }
