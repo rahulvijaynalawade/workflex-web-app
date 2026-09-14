@@ -2,6 +2,7 @@ package com.workflex.job.service;
 
 import com.workflex.constant.MessageConstant;
 import com.workflex.entity.User;
+import com.workflex.exception.ForbiddenException;
 import com.workflex.exception.ResourceNotFoundException;
 import com.workflex.job.dto.JobRequest;
 import com.workflex.job.dto.JobResponse;
@@ -46,7 +47,6 @@ public class JobServiceImpl implements JobService {
     public JobResponse createJob(JobRequest request) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-
         User employer = userRepository.findByEmail(email)
                         .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
 
@@ -63,6 +63,80 @@ public class JobServiceImpl implements JobService {
     public List<JobResponse> getAllJobs() {
 
         List<Job> jobs = jobRepository.findAll();
+
+        return jobs.stream().map(jobMapper::toResponse).toList();
+    }
+
+    private User getCurrentEmployer() {
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
+    }
+
+    private void validateOwnership(Job job, User employer) {
+
+        if (!job.getEmployer().getId().equals(employer.getId())) {
+
+            throw new ForbiddenException(MessageConstant.JOB_ACCESS_FORBIDDEN);
+        }
+    }
+
+    @Override
+    public JobResponse getMyJob(Long jobId) {
+        User employer = getCurrentEmployer();
+
+        Job job = jobRepository.findById(jobId)
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.JOB_NOT_FOUND));
+
+        validateOwnership(job, employer);
+
+        return jobMapper.toResponse(job);
+    }
+
+    @Override
+    public JobResponse updateJob(Long jobId, JobRequest request) {
+
+        User employer = getCurrentEmployer();
+
+        Job job = jobRepository.findById(jobId)
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.JOB_NOT_FOUND));
+
+        validateOwnership(job, employer);
+
+        job.setTitle(request.getTitle());
+
+        job.setDescription(request.getDescription());
+
+        job.setSkills(request.getSkills());
+
+        job.setLocation(request.getLocation());
+
+        job.setSalary(request.getSalary());
+
+        Job updatedJob = jobRepository.save(job);
+
+        return jobMapper.toResponse(updatedJob);
+    }
+
+    @Override
+    public void deleteJob(Long jobId) {
+
+        User employer = getCurrentEmployer();
+
+        Job job = jobRepository.findById(jobId)
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.JOB_NOT_FOUND));
+
+        validateOwnership(job, employer);
+
+        jobRepository.delete(job);
+    }
+
+    @Override
+    public List<JobResponse> searchJobs(String keyword) {
+
+        List<Job> jobs = jobRepository.searchJobs(keyword);
 
         return jobs.stream().map(jobMapper::toResponse).toList();
     }

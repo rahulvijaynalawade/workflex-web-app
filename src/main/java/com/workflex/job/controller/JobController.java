@@ -48,4 +48,40 @@ public class JobController {
 
         return ResponseEntity.ok(jobs);
     }
+
+    @GetMapping("/my-jobs/{jobId}")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<JobResponse> getMyJob(@PathVariable Long jobId) {
+
+        JobResponse response = jobService.getMyJob(jobId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{jobId}")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<JobResponse> updateJob(@PathVariable Long jobId, @Valid @RequestBody JobRequest request) {
+
+        JobResponse response = jobService.updateJob(jobId, request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{jobId}")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<Void> deleteJob(@PathVariable Long jobId) {
+
+        jobService.deleteJob(jobId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('WORKER')")
+    public ResponseEntity<List<JobResponse>> searchJobs(@RequestParam String keyword) {
+
+        List<JobResponse> jobs = jobService.searchJobs(keyword);
+
+        return ResponseEntity.ok(jobs);
+    }
 }

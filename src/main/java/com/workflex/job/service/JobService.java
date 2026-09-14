@@ -18,4 +18,6 @@ public interface JobService {
     JobResponse updateJob(Long jobId, JobRequest request);
 
     void deleteJob(Long jobId);
+
+    List<JobResponse> searchJobs(String keyword);
 }
