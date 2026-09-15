@@ -31,25 +31,36 @@ public class JobMapper {
 
         job.setFilledWorkers(0);
 
+
         return job;
     }
 
     public JobResponse toResponse(Job job) {
 
-        return new JobResponse(
-                job.getId(),
-                job.getTitle(),
-                job.getDescription(),
-                job.getSkills(),
-                job.getLocation(),
-                job.getPayment(),
-                job.getWorkDate(),
-                job.getStartTime(),
-                job.getEndTime(),
-                job.getRequiredWorkers(),
-                job.getFilledWorkers(),
-                job.getEmployer().getId(),
-                job.getEmployer().getFullName()
-        );
+        JobResponse response = new JobResponse();
+
+        response.setId(job.getId());
+        response.setTitle(job.getTitle());
+        response.setDescription(job.getDescription());
+        response.setSkills(job.getSkills());
+        response.setLocation(job.getLocation());
+
+        response.setPayment(job.getPayment());
+
+        response.setWorkDate(job.getWorkDate());
+        response.setStartTime(job.getStartTime());
+        response.setEndTime(job.getEndTime());
+
+        response.setRequiredWorkers(job.getRequiredWorkers());
+
+        response.setFilledWorkers(job.getFilledWorkers());
+
+        response.setAvailableWorkers(job.getRequiredWorkers() - job.getFilledWorkers());
+
+        response.setEmployerId(job.getEmployer().getId());
+
+        response.setEmployerName(job.getEmployer().getFullName());
+
+        return response;
     }
 }

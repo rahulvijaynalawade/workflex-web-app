@@ -50,11 +50,10 @@ public class Job {
     @Column(nullable = false)
     private Integer filledWorkers = 0;
 
+    private Integer availableWorkers;
+
     @ManyToOne
-    @JoinColumn(
-            name = "employer_id",
-            nullable = false
-    )
+    @JoinColumn(name = "employer_id", nullable = false)
     private User employer;
 
 }

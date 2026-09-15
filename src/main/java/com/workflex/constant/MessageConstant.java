@@ -28,6 +28,18 @@ public final class MessageConstant {
 
     public static final String CANNOT_APPLY_OWN_JOB = "You cannot apply to your own job";
 
+    public static final String APPLICATION_NOT_FOUND = "Application not found";
+
+    public static final String APPLICATION_ACCESS_FORBIDDEN = "You are not allowed to manage this application";
+
+    public static final String APPLICATION_ALREADY_ACCEPTED = "Application is already accepted";
+
+    public static final String APPLICATION_ALREADY_REJECTED = "Application is already rejected";
+
+    public static final String APPLICATION_NOT_PENDING = "Only pending applications can be accepted or rejected";
+
+    public static final String JOB_FULL = "No worker slots are available for this job";
+
     private MessageConstant() {
     }
 }

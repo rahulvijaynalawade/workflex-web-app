@@ -33,4 +33,25 @@ public class ApplicationController {
 
         return ResponseEntity.ok(applicationService.getMyApplications());
     }
+
+    @GetMapping("/job/{jobId}")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<List<ApplicationResponse>> getJobApplications(@PathVariable Long jobId) {
+
+        return ResponseEntity.ok(applicationService.getJobApplications(jobId));
+    }
+
+    @PutMapping("/{applicationId}/accept")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<ApplicationResponse> acceptApplication(@PathVariable Long applicationId) {
+
+        return ResponseEntity.ok(applicationService.acceptApplication(applicationId));
+    }
+
+    @PutMapping("/{applicationId}/reject")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<ApplicationResponse> rejectApplication(@PathVariable Long applicationId) {
+
+        return ResponseEntity.ok(applicationService.rejectApplication(applicationId));
+    }
 }

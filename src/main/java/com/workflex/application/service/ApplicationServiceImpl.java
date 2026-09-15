@@ -6,6 +6,7 @@ import com.workflex.enums.ApplicationStatus;
 import com.workflex.application.repository.ApplicationRepository;
 import com.workflex.entity.User;
 import com.workflex.exception.BadRequestException;
+import com.workflex.exception.ForbiddenException;
 import com.workflex.exception.ResourceNotFoundException;
 import com.workflex.job.entity.Job;
 import com.workflex.job.repository.JobRepository;
@@ -87,5 +88,82 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.USER_NOT_FOUND));
+    }
+
+    @Override
+    public List<ApplicationResponse> getJobApplications(Long jobId) {
+
+        User employer = getCurrentUser();
+
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.JOB_NOT_FOUND));
+
+        validateEmployerOwnership(job, employer);
+
+        return applicationRepository.findByJobId(jobId).stream().map(applicationMapper::toResponse).toList();
+    }
+
+    private void validateEmployerOwnership(Job job, User employer) {
+
+        if (!job.getEmployer().getId().equals(employer.getId())) {
+
+            throw new ForbiddenException(MessageConstant.APPLICATION_ACCESS_FORBIDDEN);
+        }
+    }
+
+    @Override
+    public ApplicationResponse acceptApplication(Long applicationId) {
+
+        User employer = getCurrentUser();
+
+        Application application = applicationRepository.findById(applicationId)
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.APPLICATION_NOT_FOUND));
+
+        Job job = application.getJob();
+
+        validateEmployerOwnership(job, employer);
+
+        if (application.getStatus() != ApplicationStatus.PENDING) {
+
+            throw new BadRequestException(MessageConstant.APPLICATION_NOT_PENDING);
+        }
+
+        if (job.getFilledWorkers() >= job.getRequiredWorkers()) {
+
+            throw new BadRequestException(MessageConstant.JOB_FULL);
+        }
+
+        application.setStatus(ApplicationStatus.ACCEPTED);
+
+        job.setFilledWorkers(job.getFilledWorkers() + 1);
+
+        applicationRepository.save(application);
+        jobRepository.save(job);
+
+        return applicationMapper.toResponse(application);
+    }
+
+    @Override
+    public ApplicationResponse rejectApplication(Long applicationId) {
+
+        User employer = getCurrentUser();
+
+        Application application = applicationRepository.findById(applicationId)
+                        .orElseThrow(() -> new ResourceNotFoundException(MessageConstant.APPLICATION_NOT_FOUND));
+
+        Job job = application.getJob();
+
+        validateEmployerOwnership(job, employer);
+
+        if (application.getStatus() != ApplicationStatus.PENDING) {
+
+            throw new BadRequestException(MessageConstant.APPLICATION_NOT_PENDING);
+        }
+
+        application.setStatus(ApplicationStatus.REJECTED);
+
+        Application savedApplication = applicationRepository.save(application);
+
+        return applicationMapper.toResponse(savedApplication);
     }
 }
