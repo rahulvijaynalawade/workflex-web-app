@@ -2,9 +2,12 @@ package com.workflex.application.service;
 
 import com.workflex.application.dto.ApplicationResponse;
 import com.workflex.application.entity.Application;
+import com.workflex.attendance.entity.Attendance;
+import com.workflex.attendance.repository.AttendanceRepository;
 import com.workflex.enums.ApplicationStatus;
 import com.workflex.application.repository.ApplicationRepository;
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
+import com.workflex.enums.AttendanceStatus;
 import com.workflex.exception.BadRequestException;
 import com.workflex.exception.ForbiddenException;
 import com.workflex.exception.ResourceNotFoundException;
@@ -12,7 +15,8 @@ import com.workflex.job.entity.Job;
 import com.workflex.job.repository.JobRepository;
 import com.workflex.mapper.ApplicationMapper;
 import com.workflex.constant.MessageConstant;
-import com.workflex.repository.UserRepository;
+import com.workflex.user.repository.UserRepository;
+
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -23,12 +27,14 @@ import java.util.List;
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
+    private final AttendanceRepository attendanceRepository;
     private final ApplicationRepository applicationRepository;
     private final JobRepository jobRepository;
     private final UserRepository userRepository;
     private final ApplicationMapper applicationMapper;
 
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository, JobRepository jobRepository, UserRepository userRepository, ApplicationMapper applicationMapper) {
+    public ApplicationServiceImpl(AttendanceRepository attendanceRepository, ApplicationRepository applicationRepository, JobRepository jobRepository, UserRepository userRepository, ApplicationMapper applicationMapper) {
+        this.attendanceRepository = attendanceRepository;
 
         this.applicationRepository = applicationRepository;
         this.jobRepository = jobRepository;
@@ -137,8 +143,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         job.setFilledWorkers(job.getFilledWorkers() + 1);
 
+
+
         applicationRepository.save(application);
         jobRepository.save(job);
+
+        Attendance attendance = new Attendance();
+
+        attendance.setApplication(application);
+        attendance.setStatus(AttendanceStatus.PENDING);
+        attendanceRepository.save(attendance);
 
         return applicationMapper.toResponse(application);
     }

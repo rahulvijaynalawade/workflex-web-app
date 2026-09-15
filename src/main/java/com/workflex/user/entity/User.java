@@ -1,4 +1,4 @@
-package com.workflex.entity;
+package com.workflex.user.entity;
 
 import com.workflex.enums.Role;
 import jakarta.persistence.*;

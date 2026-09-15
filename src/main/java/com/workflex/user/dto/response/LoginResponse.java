@@ -1,4 +1,4 @@
-package com.workflex.dto.response;
+package com.workflex.user.dto.response;
 
 import com.workflex.enums.Role;
 import lombok.AllArgsConstructor;

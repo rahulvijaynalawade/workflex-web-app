@@ -1,8 +1,8 @@
-package com.workflex.controller;
+package com.workflex.user.controller;
 
-import com.workflex.dto.request.LoginRequest;
-import com.workflex.dto.response.LoginResponse;
-import com.workflex.entity.User;
+import com.workflex.user.dto.request.LoginRequest;
+import com.workflex.user.dto.response.LoginResponse;
+import com.workflex.user.entity.User;
 import com.workflex.security.CustomUserDetails;
 import com.workflex.security.JwtService;
 import jakarta.validation.Valid;

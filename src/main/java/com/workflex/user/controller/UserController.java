@@ -1,7 +1,7 @@
-package com.workflex.controller;
+package com.workflex.user.controller;
 
-import com.workflex.dto.request.RegisterRequest;
-import com.workflex.service.UserService;
+import com.workflex.user.dto.request.RegisterRequest;
+import com.workflex.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

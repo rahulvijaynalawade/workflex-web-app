@@ -1,6 +1,6 @@
 package com.workflex.job.entity;
 
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
 
 import jakarta.persistence.*;
 import lombok.*;

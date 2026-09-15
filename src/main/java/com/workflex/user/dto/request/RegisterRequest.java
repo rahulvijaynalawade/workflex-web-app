@@ -1,4 +1,4 @@
-package com.workflex.dto.request;
+package com.workflex.user.dto.request;
 
 import com.workflex.enums.Role;
 import jakarta.validation.constraints.*;

@@ -1,7 +1,7 @@
 package com.workflex.job.service;
 
 import com.workflex.constant.MessageConstant;
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
 import com.workflex.exception.ForbiddenException;
 import com.workflex.exception.ResourceNotFoundException;
 import com.workflex.job.dto.JobRequest;
@@ -10,7 +10,7 @@ import com.workflex.job.entity.Job;
 import com.workflex.job.repository.JobRepository;
 import com.workflex.mapper.JobMapper;
 
-import com.workflex.repository.UserRepository;
+import com.workflex.user.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

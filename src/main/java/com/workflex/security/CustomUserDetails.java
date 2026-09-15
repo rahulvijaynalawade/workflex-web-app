@@ -1,6 +1,6 @@
 package com.workflex.security;
 
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

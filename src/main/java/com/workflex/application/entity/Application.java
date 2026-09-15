@@ -1,7 +1,7 @@
 package com.workflex.application.entity;
 
 import com.workflex.enums.ApplicationStatus;
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
 import com.workflex.job.entity.Job;
 import jakarta.persistence.*;
 import lombok.*;

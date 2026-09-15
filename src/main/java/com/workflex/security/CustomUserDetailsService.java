@@ -1,7 +1,7 @@
 package com.workflex.security;
 
-import com.workflex.entity.User;
-import com.workflex.repository.UserRepository;
+import com.workflex.user.entity.User;
+import com.workflex.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 

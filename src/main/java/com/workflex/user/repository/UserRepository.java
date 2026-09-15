@@ -1,6 +1,6 @@
-package com.workflex.repository;
+package com.workflex.user.repository;
 
-import com.workflex.entity.User;
+import com.workflex.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package com.workflex.service.impl;
+package com.workflex.user.service.impl;
 
-import com.workflex.dto.request.RegisterRequest;
-import com.workflex.entity.User;
-import com.workflex.repository.UserRepository;
-import com.workflex.service.UserService;
+import com.workflex.user.dto.request.RegisterRequest;
+import com.workflex.user.entity.User;
+import com.workflex.user.repository.UserRepository;
+import com.workflex.user.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

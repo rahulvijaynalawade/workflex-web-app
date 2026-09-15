@@ -40,6 +40,17 @@ public final class MessageConstant {
 
     public static final String JOB_FULL = "No worker slots are available for this job";
 
+    public static final String ATTENDANCE_NOT_FOUND = "Attendance not found";
+
+    public static final String ATTENDANCE_ACCESS_FORBIDDEN = "You are not allowed to access this attendance";
+
+    public static final String WORKER_NOT_ASSIGNED = "Worker is not assigned to this job";
+
+    public static final String ATTENDANCE_ALREADY_MARKED = "Attendance has already been marked";
+
+    public static final String WORK_NOT_COMPLETED = "Work must be marked present before completion";
+
+
     private MessageConstant() {
     }
 }

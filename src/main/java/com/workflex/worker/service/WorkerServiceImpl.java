@@ -1,11 +1,10 @@
 package com.workflex.worker.service;
 
 import com.workflex.constant.MessageConstant;
-import com.workflex.entity.User;
-import com.workflex.exception.BadRequestException;
+import com.workflex.user.entity.User;
 import com.workflex.exception.ResourceNotFoundException;
 import com.workflex.mapper.WorkerProfileMapper;
-import com.workflex.repository.UserRepository;
+import com.workflex.user.repository.UserRepository;
 import com.workflex.worker.dto.WorkerProfileRequest;
 import com.workflex.worker.dto.WorkerProfileResponse;
 import com.workflex.worker.entity.WorkerProfile;
