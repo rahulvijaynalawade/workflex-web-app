@@ -12,10 +12,24 @@ public class JobMapper {
         Job job = new Job();
 
         job.setTitle(request.getTitle());
+
         job.setDescription(request.getDescription());
+
         job.setSkills(request.getSkills());
+
         job.setLocation(request.getLocation());
-        job.setSalary(request.getSalary());
+
+        job.setPayment(request.getPayment());
+
+        job.setWorkDate(request.getWorkDate());
+
+        job.setStartTime(request.getStartTime());
+
+        job.setEndTime(request.getEndTime());
+
+        job.setRequiredWorkers(request.getRequiredWorkers());
+
+        job.setFilledWorkers(0);
 
         return job;
     }
@@ -28,7 +42,12 @@ public class JobMapper {
                 job.getDescription(),
                 job.getSkills(),
                 job.getLocation(),
-                job.getSalary(),
+                job.getPayment(),
+                job.getWorkDate(),
+                job.getStartTime(),
+                job.getEndTime(),
+                job.getRequiredWorkers(),
+                job.getFilledWorkers(),
                 job.getEmployer().getId(),
                 job.getEmployer().getFullName()
         );

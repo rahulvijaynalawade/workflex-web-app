@@ -1,8 +1,12 @@
 package com.workflex.job.entity;
 
 import com.workflex.entity.User;
+
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "jobs")
@@ -29,9 +33,28 @@ public class Job {
     private String location;
 
     @Column(nullable = false)
-    private Double salary;
+    private Double payment;
+
+    @Column(nullable = false)
+    private LocalDate workDate;
+
+    @Column(nullable = false)
+    private LocalTime startTime;
+
+    @Column(nullable = false)
+    private LocalTime endTime;
+
+    @Column(nullable = false)
+    private Integer requiredWorkers;
+
+    @Column(nullable = false)
+    private Integer filledWorkers = 0;
 
     @ManyToOne
-    @JoinColumn(name = "employer_id", nullable = false)
+    @JoinColumn(
+            name = "employer_id",
+            nullable = false
+    )
     private User employer;
+
 }

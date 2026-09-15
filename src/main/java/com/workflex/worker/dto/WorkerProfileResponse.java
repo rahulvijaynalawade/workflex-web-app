@@ -13,14 +13,7 @@ public class WorkerProfileResponse {
     public WorkerProfileResponse() {
     }
 
-    public WorkerProfileResponse(
-            Long id,
-            Long userId,
-            String fullName,
-            String skills,
-            String experience,
-            String availability,
-            Double rating) {
+    public WorkerProfileResponse(Long id, Long userId, String fullName, String skills, String experience, String availability, Double rating) {
 
         this.id = id;
         this.userId = userId;

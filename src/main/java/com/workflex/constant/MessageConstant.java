@@ -22,6 +22,12 @@ public final class MessageConstant {
 
     public static final String JOB_ACCESS_FORBIDDEN = "You are not allowed to access this job";
 
+    public static final String JOB_ALREADY_FULL = "This job is already full";
+
+    public static final String ALREADY_APPLIED = "You have already applied for this job";
+
+    public static final String CANNOT_APPLY_OWN_JOB = "You cannot apply to your own job";
+
     private MessageConstant() {
     }
 }

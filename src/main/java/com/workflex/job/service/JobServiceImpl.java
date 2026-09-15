@@ -113,7 +113,7 @@ public class JobServiceImpl implements JobService {
 
         job.setLocation(request.getLocation());
 
-        job.setSalary(request.getSalary());
+        job.setPayment(request.getPayment());
 
         Job updatedJob = jobRepository.save(job);
 
